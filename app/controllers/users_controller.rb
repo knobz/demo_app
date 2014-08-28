@@ -73,7 +73,11 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
+    if @user.destroy
+      redirect_to users_path, :notice => "successfully deleted user"
+    else
+      redirect_to users_path, :notice => "Failed to delete user"
+    end
 
     respond_to do |format|
       format.html { redirect_to users_url }
